@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .home-grid-cluster {
+    grid-template-areas:
+      "a a a a a b b b b c c c"
+      "a a a a a b b b b c c c"
+      "a a a a a b b b b c c c"
+      "a a a a a b b b b c c c"
+      "a a a a a e e e e e e e"
+      "a a a a a e e e e e e e"
+      "d d d d d e e e e e e e"
+      "d d d d d e e e e e e e"
+      "d d d d d e e e e e e e"
+      "d d d d d e e e e e e e"
+      "d d d d d e e e e e e e"
+      "d d d d d e e e e e e e";
+    @media (max-width: 1279px) {
+      grid-template-areas:
+        "a a a a"
+        "a a a a"
+        "b b c c"
+        "d d d d"
+        "e e e e";
+    }
+    @media (max-width: 1023px) {
+      grid-template-areas:
+        "a a a a"
+        "b b b b"
+        "c c c c"
+        "d d d d"
+        "e e e e";
+    }
+  }
+
+  .courier-grid-cluster {
+    grid-template-areas:
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b"
+      "a a a a a a a a b b b b";
+
+    @media (max-width: 1023px) {
+      grid-template-areas:
+        "a a a a"
+        "b b b b";
+    }
+  }
+
+  .packages-grid-cluster {
+    grid-template-areas:
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b"
+      "a a a a a a b b b b b b";
+
+    @media (max-width: 1023px) {
+      grid-template-areas:
+        "a a a a"
+        "b b b b";
+    }
+  }
+
+  .area-a {
+    grid-area: a;
+  }
+  .area-b {
+    grid-area: b;
+  }
+  .area-c {
+    grid-area: c;
+  }
+  .area-d {
+    grid-area: d;
+  }
+  .area-e {
+    grid-area: e;
+  }
+}
