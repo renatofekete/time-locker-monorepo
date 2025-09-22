@@ -1,3 +1,4 @@
+import "./styles.css";
 export { default as Alert } from "./components/alert/Alert";
 export type { AlertProps } from "./components/alert/Alert";
 

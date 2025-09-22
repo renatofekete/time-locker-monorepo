@@ -35,9 +35,8 @@ export default {
       },
       extensions: [".css"],
       minimize: true,
-      inject: {
-        insertAt: "top",
-      },
+      extract: "styles.css",
+      inject: false,
     }),
   ],
   external: ["react", "react-dom"],

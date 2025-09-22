@@ -7,7 +7,7 @@ import Cluster from "../../components/layout/Cluster";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import MenuWidget from "../../components/layout/MenuWidget";
 import CustomerReportsWidget from "../../components/features/customers/CustomerReportsWidget";
-
+import { Alert } from "time-locker-ui";
 const Home = () => {
   return (
     <DashboardLayout>

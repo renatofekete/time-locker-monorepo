@@ -1,4 +1,4 @@
-import Card from "@/components/ui/card/Card";
+//import Card from "@/components/ui/card/Card";
 import Tuning from "../../../assets/icons/Tuning.svg?react";
 import SortVertical from "../../../assets/icons/SortVertical.svg?react";
 import Table from "../../ui/table/Table";
@@ -11,6 +11,7 @@ import SearchBar from "@/components/ui/search/SearchBar";
 import { getQueryParams } from "@/utils/query";
 import type { PackageType } from "@/types/PackageType";
 import PackagesFilterModal from "./PackagesFilterModal";
+import { Card } from "time-locker-ui";
 
 const TABLE_HEADERS = [
   { label: "Package ID" },
