@@ -12,6 +12,11 @@ const Home = () => {
   return (
     <DashboardLayout>
       <div className="grid gap-5">
+        <Alert
+          type="info"
+          className="mb-4"
+          text="This is a demo version of Time Locker. Data is reset every hour."
+        />
         <StatisticsWidget />
         <DeliveriesWidget />
         <Cluster className="home-grid-cluster">
