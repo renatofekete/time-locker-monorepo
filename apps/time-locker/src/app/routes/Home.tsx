@@ -13,7 +13,7 @@ const Home = () => {
     <DashboardLayout>
       <div className="grid gap-5">
         <Alert
-          type="info"
+          type="success"
           className="mb-4"
           text="This is a demo version of Time Locker. Data is reset every hour."
         />

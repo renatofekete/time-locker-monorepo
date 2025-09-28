@@ -6,31 +6,44 @@ export type PackagePickupMethod = {
   abbreviation: string;
 };
 
-export type PackageSTateType = {
+export type PackageStateType = {
   id: number;
   name: string;
   abbreviation: string;
 };
 
+export type SenderType = {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  userSettingsId: string;
+  roleId: number;
+  registrationStep: number;
+  lastActive: string;
+  fullName: string;
+  id: string;
+  createdTime: string;
+  updatedTime: string;
+};
+
 export type PackageType = {
   id: string;
-  code: string;
-  creationTime: string;
-  weight: number;
-  width: number;
-  trackingNumber: string;
-  trackingLink: string;
+  senderId: string;
+  sender: SenderType;
+  senderTypeId: number;
+  packagePickupMethodId: number;
+  packageRecipientTypeId: number;
+  packageShipmentPriceCovererId: number;
   shipmentPrice: number;
-  depth: number;
+  hasToPayForPackage: boolean;
   hasRecipientPaid: boolean;
   hasSenderPaid: boolean;
-  hasToPayForPackage: true;
-  message: string;
-  packagePrice: number;
-  pickupTime: string | null;
-  packagePickupMethod: PackagePickupMethod;
+  stateId: number;
+  courierCompanyId: string;
   courierCompany: CourierCompanyType;
-  state: PackageSTateType;
-  recipientAdressSnapshot: string | null;
-  recipientName: string;
+  trackingNumber: string;
+  createdTime: string;
+  updatedTime: string;
 };

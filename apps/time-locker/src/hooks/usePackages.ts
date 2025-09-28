@@ -8,6 +8,15 @@ export const usePackages = (endpoint: string) => {
     queryKey: ["packages", endpoint],
     queryFn: () => getPackages(endpoint),
     staleTime: 5 * 60 * 1000,
+    refetchInterval: 5000,
+  });
+};
+
+export const usePackage = (endpoint: string) => {
+  return useQuery({
+    queryKey: ["package", endpoint],
+    queryFn: () => getPackages(endpoint),
+    staleTime: 5 * 60 * 1000,
   });
 };
 

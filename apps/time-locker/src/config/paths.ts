@@ -11,6 +11,10 @@ const paths = {
     path: "/packages",
     getHref: () => "/packages",
   },
+  package: {
+    path: "/packages/:id",
+    getHref: (id: string) => `/packages/${id}`,
+  },
   settings: {
     path: "/settings",
     getHref: () => "/settings",

@@ -2,12 +2,14 @@ import type { ApiResponse } from "./ApiResponseType";
 import type { PackageType } from "./PackageType";
 
 export type CourierCompanyType = {
-  abbreviation: string;
-  id: string;
-  logoUrl: string;
   name: string;
-  notificationEmail: string | null;
-  phoneNumber: string | null;
+  abbreviation: string;
+  logoUrl: string;
+  phoneNumber: string;
+  notificationEmail: string;
+  id: string;
+  createdTime: string;
+  updatedTime: string;
 };
 
 export type DeliveryType = {

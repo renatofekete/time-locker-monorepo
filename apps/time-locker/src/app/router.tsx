@@ -5,6 +5,7 @@ import Loader from "@/components/ui/loader/Loader";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./routes/Profile";
 import RegisterCourier from "./routes/RegisterCourier";
+import Package from "./routes/Package";
 
 const Login = lazy(() => import("@/app/routes/auth/Login"));
 const Home = lazy(() => import("@/app/routes/Home"));
@@ -57,6 +58,14 @@ export const router = createBrowserRouter([
         element: (
           <LazyComponent>
             <Packages />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: paths.package.path,
+        element: (
+          <LazyComponent>
+            <Package />
           </LazyComponent>
         ),
       },
