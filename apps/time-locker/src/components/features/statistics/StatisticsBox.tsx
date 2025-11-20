@@ -16,7 +16,7 @@ const StatisticsBox = ({
   unit,
   percentage,
 }: StatisticsBoxProps) => {
-  const alertType = percentage > 0 ? "success" : "error";
+  const alertType = percentage < 0 ? "error" : "success";
 
   return (
     <div className="flex justify-between px-5 py-4 border-1 border-neutral-300/50">
@@ -35,9 +35,9 @@ const StatisticsBox = ({
           <Alert
             type={alertType}
             text={
-              percentage > 0
-                ? `+${percentage.toString()}%`
-                : `${percentage.toString()}%`
+              percentage < 0
+                ? `${percentage.toString()}%`
+                : `+${percentage.toString()}%`
             }
             icon={
               alertType === "success" ? (

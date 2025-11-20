@@ -3,9 +3,9 @@ import Card from "@/components/ui/card/Card";
 import { useAuth } from "@/lib/auth/auth-provider";
 
 const Profile = () => {
-  const { userProfileData } = useAuth();
+  const { user } = useAuth();
 
-  if (!userProfileData || !userProfileData.data) {
+  if (!user) {
     return (
       <DashboardLayout>
         <div className="flex justify-center items-center h-full">
@@ -15,7 +15,7 @@ const Profile = () => {
     );
   }
 
-  const user = userProfileData.data;
+  const userData = user.data;
 
   return (
     <DashboardLayout>
@@ -25,53 +25,53 @@ const Profile = () => {
             <div>
               <h3 className="text-sm font-medium text-gray-500">Full Name</h3>
               <p className="mt-1">
-                {user.firstName} {user.lastName}
+                {userData.firstName} {userData.lastName}
               </p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">
                 Email Address
               </h3>
-              <p className="mt-1">{user.email}</p>
+              <p className="mt-1">{userData.email}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">
                 Phone Number
               </h3>
-              <p className="mt-1">{user.phoneNumber || "Not provided"}</p>
+              <p className="mt-1">{userData.phoneNumber || "Not provided"}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">Username</h3>
-              <p className="mt-1">{user.username}</p>
+              <p className="mt-1">{userData.userName}</p>
             </div>
           </div>
         </Card>
 
         <Card title="Location">
-          {user.location ? (
+          {userData.location ? (
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Address</h3>
-                <p className="mt-1">{user.location.address}</p>
+                <p className="mt-1">{userData.location.address}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">City</h3>
-                <p className="mt-1">{user.location.city}</p>
+                <p className="mt-1">{userData.location.city}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Region</h3>
-                <p className="mt-1">{user.location.region}</p>
+                <p className="mt-1">{userData.location.region}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Country</h3>
-                <p className="mt-1">{user.location.country}</p>
+                <p className="mt-1">{userData.location.country}</p>
               </div>
-              {user.location.floorUnit && (
+              {userData.location.floorUnit && (
                 <div>
                   <h3 className="text-sm font-medium text-gray-500">
                     Floor/Unit
                   </h3>
-                  <p className="mt-1">{user.location.floorUnit}</p>
+                  <p className="mt-1">{userData.location.floorUnit}</p>
                 </div>
               )}
             </div>

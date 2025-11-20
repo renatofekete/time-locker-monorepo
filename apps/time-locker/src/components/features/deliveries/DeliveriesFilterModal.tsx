@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "@/components/ui/modal/Modal";
 import { formatDateForApi, formatDateForInput } from "@/utils/date";
+import { usePackagesPickupMethod } from "@/hooks/usePackages";
 
 type FilterProps = {
   isOpen: boolean;
@@ -52,8 +53,18 @@ const DeliveriesFilterModal = ({
     });
   };
 
+  const { data, isLoading, error } = usePackagesPickupMethod(
+    `/packages/pickup-methods`
+  );
+
   return (
-    <Modal title="Filter Deliveries" isOpen={isOpen} onClose={onClose}>
+    <Modal
+      title="Filter Deliveries"
+      isOpen={isOpen}
+      onClose={onClose}
+      error={error}
+      isLoading={isLoading}
+    >
       <div className="p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -105,9 +116,11 @@ const DeliveriesFilterModal = ({
             className="w-full p-2 border border-gray-300 rounded-md"
           >
             <option value="">All</option>
-            <option value="Parcel machine">Parcel machine</option>
-            <option value="Locker">Time Locker</option>
-            <option value="Personal mailbox">Personal mailbox</option>
+            {data?.data.items.map((state: string) => (
+              <option key={state.abbreviation} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -123,22 +136,6 @@ const DeliveriesFilterModal = ({
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Enter location"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Delivery Status
-          </label>
-          <select
-            name="isDelivered"
-            value={localFilters.isDelivered}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          >
-            <option value="">All</option>
-            <option value="true">Delivered</option>
-            <option value="false">Not Delivered</option>
-          </select>
         </div>
 
         <div className="flex justify-end gap-3 mt-6">

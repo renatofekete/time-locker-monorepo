@@ -10,8 +10,8 @@ import {
 import Logo from "../ui/logo/Logo";
 
 const Footer = () => {
-  return (
-    <footer className="max-w-[1720px] w-full mx-auto] px-2.5 2xl:py-0 mx-auto">
+  const footerContent = (
+    <>
       <div className="flex gap-[5.25rem] py-16 border-b-2 border-neutral-200 flex-wrap lg:flex-nowrap flex-col sm:flex-row">
         <div>
           <h3 className="text-lg text-neutral-900/80 ">Homepage</h3>
@@ -61,6 +61,16 @@ const Footer = () => {
               </li>
             </ul>
           </nav>
+        </div>
+      </div>
+    </>
+  );
+
+  return (
+    <footer className="max-w-[1720px] w-full mx-auto] px-2.5 2xl:py-0 mx-auto">
+      <div className="bg-white px-6 lg:px-12">
+        <div className="text-center text-sm text-neutral-600 py-6">
+          © {new Date().getFullYear()} Time Locker. All rights reserved.
         </div>
       </div>
     </footer>

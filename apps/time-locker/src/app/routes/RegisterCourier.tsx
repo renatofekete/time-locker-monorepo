@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import Card from "@/components/ui/card/Card";
 import Button from "@/components/ui/button/Button";
 import { apiPost } from "@/lib/api/restClient";
+import { useNavigate } from "react-router-dom";
 
 type CourierFormData = {
   email: string;
@@ -13,12 +14,6 @@ type CourierFormData = {
   roleId: number;
   courierServiceId: string;
 };
-
-const LANGUAGE_OPTIONS = [
-  { value: "en_US", label: "English (US)" },
-  { value: "hr_HR", label: "Croatian" },
-  { value: "de_DE", label: "German" },
-];
 
 const COURIER_SERVICES = [
   {
@@ -39,6 +34,7 @@ const RegisterCourier = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -58,7 +54,6 @@ const RegisterCourier = () => {
     setSubmitError(null);
 
     try {
-      // Submit data to API
       const response = await apiPost("/couriers/register", data);
 
       console.log("Courier registered successfully:", response);
@@ -128,122 +123,14 @@ const RegisterCourier = () => {
                 )}
               </div>
 
-              <div>
-                <label
-                  htmlFor="phoneNumber"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Phone Number *
-                </label>
-                <input
-                  id="phoneNumber"
-                  type="tel"
-                  {...register("phoneNumber", {
-                    required: "Phone number is required",
-                    pattern: {
-                      value: /^\+?[0-9\s\-()]+$/,
-                      message: "Invalid phone number",
-                    },
-                  })}
-                  placeholder="+385 91 234 5678"
-                  className={`w-full p-3 border ${
-                    errors.phoneNumber ? "border-red-500" : "border-gray-300"
-                  } rounded-md`}
-                />
-                {errors.phoneNumber && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.phoneNumber.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="referralCode"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Referral Code
-                </label>
-                <input
-                  id="referralCode"
-                  type="text"
-                  {...register("referralCode")}
-                  className="w-full p-3 border border-gray-300 rounded-md"
-                  placeholder="Optional - Enter referral code if you have one"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="languageCode"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Preferred Language *
-                </label>
-                <select
-                  id="languageCode"
-                  {...register("languageCode", {
-                    required: "Language is required",
-                  })}
-                  className={`w-full p-3 border ${
-                    errors.languageCode ? "border-red-500" : "border-gray-300"
-                  } rounded-md bg-white`}
-                >
-                  {LANGUAGE_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-                {errors.languageCode && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.languageCode.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="courierServiceId"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Courier Service *
-                </label>
-                <select
-                  id="courierServiceId"
-                  {...register("courierServiceId", {
-                    required: "Courier service is required",
-                  })}
-                  className={`w-full p-3 border ${
-                    errors.courierServiceId
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } rounded-md bg-white`}
-                >
-                  {COURIER_SERVICES.map((service) => (
-                    <option key={service.id} value={service.id}>
-                      {service.name}
-                    </option>
-                  ))}
-                </select>
-                {errors.courierServiceId && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.courierServiceId.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Hidden field for roleId */}
-              <input type="hidden" {...register("roleId")} value={1} />
-
               <div className="flex justify-end gap-4 pt-4">
                 <Button
                   variant="secondary"
-                  onClick={() => reset()}
+                  onClick={() => navigate(-1)}
                   type="button"
                   disabled={isSubmitting}
                 >
-                  Cancel
+                  Back
                 </Button>
                 <Button
                   variant="primary"

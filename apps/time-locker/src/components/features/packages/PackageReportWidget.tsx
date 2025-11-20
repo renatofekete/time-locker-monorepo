@@ -27,7 +27,7 @@ type PackageReportWidgetProps = {
 
 const PackageReportWidget = ({ className }: PackageReportWidgetProps) => {
   const { data, isLoading, error } = usePackagesStatistics(
-    `/package-statistics/weekly`
+    `/package-statistics/weekly?CourierCompanyId=0d446e31-fe0d-438b-9a7a-b4ee9304f06b`
   );
   return (
     <Card

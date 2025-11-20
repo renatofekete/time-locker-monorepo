@@ -27,3 +27,19 @@ export const usePackagesStatistics = (endpoint: string) => {
     staleTime: 5 * 60 * 1000,
   });
 };
+
+export const usePackageStates = (endpoint: string) => {
+  return useQuery({
+    queryKey: ["packagesStates", endpoint],
+    queryFn: () => getPackages(endpoint),
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+export const usePackagesPickupMethod = (endpoint: string) => {
+  return useQuery({
+    queryKey: ["packagesPickupMethod", endpoint],
+    queryFn: () => getPackages(endpoint),
+    staleTime: 5 * 60 * 1000,
+  });
+};

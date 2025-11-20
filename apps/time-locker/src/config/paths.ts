@@ -1,3 +1,6 @@
+import EditCourier from "@/app/routes/EditCourier";
+import path from "path";
+
 const paths = {
   home: {
     path: "/",
@@ -6,6 +9,14 @@ const paths = {
   couriers: {
     path: "/couriers",
     getHref: () => "/couriers",
+  },
+  courier: {
+    path: "/couriers/:id",
+    getHref: (id: string) => `/couriers/${id}`,
+  },
+  editCourier: {
+    path: "/couriers/:id/edit",
+    getHref: (id: string) => `/couriers/${id}/edit`,
   },
   packages: {
     path: "/packages",

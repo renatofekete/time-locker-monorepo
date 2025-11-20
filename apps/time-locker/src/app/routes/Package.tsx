@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card } from "time-locker-ui";
 import { useParams } from "react-router-dom";
 import type { PackageType } from "@/types/PackageType";
+import { readableDateTime } from "@/utils/date";
 
 const InfoRow = ({
   label,
@@ -55,9 +56,8 @@ const Package: React.FC = () => {
         <Card
           title={
             <div className="flex items-center gap-3">
-              <span className="text-xl font-bold">Package #{pkg.id}</span>
-              <span className="ml-auto px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-                {pkg.stateId}
+              <span className="text-xl font-bold">
+                Package {pkg.trackingNumber}
               </span>
             </div>
           }
@@ -66,16 +66,18 @@ const Package: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-slate-50 rounded-lg p-5">
               <InfoRow label="Tracking Number" value={pkg.trackingNumber} />
+              <InfoRow label="Sender" value={pkg.sender.fullName} />
+              <InfoRow label="Sender Email" value={pkg.sender.email} />
               <InfoRow
-                label="Pickup Method"
-                value={pkg.packagePickupMethodId}
+                label="Sender Phone Number"
+                value={pkg.sender.phoneNumber}
               />
+              <InfoRow label="Recipient" value={pkg.recipient.fullName} />
+              <InfoRow label="Recipient Email" value={pkg.recipient.email} />
               <InfoRow
-                label="Recipient Type"
-                value={pkg.packageRecipientTypeId}
+                label="Recipient Phone Number"
+                value={pkg.recipient.phoneNumber}
               />
-              <InfoRow label="Created Time" value={pkg.createdTime} />
-              <InfoRow label="Updated Time" value={pkg.updatedTime} />
             </div>
             <div className="bg-slate-50 rounded-lg p-5">
               <InfoRow
@@ -85,6 +87,26 @@ const Package: React.FC = () => {
               <InfoRow
                 label="Courier Phone"
                 value={pkg.courierCompany?.phoneNumber}
+              />
+              <InfoRow
+                label="Pickup Time"
+                value={readableDateTime(pkg.pickupTime)}
+              />
+              <InfoRow
+                label="Delivery Time"
+                value={readableDateTime(pkg.deliveryTime)}
+              />
+              <InfoRow
+                label="Delivery Address"
+                value={pkg.recipient.location.address}
+              />
+              <InfoRow
+                label="Delivery City"
+                value={`${pkg.recipient.location.city} ${pkg.recipient.location.zipCode}`}
+              />
+              <InfoRow
+                label="Shipment Price"
+                value={`$${pkg.shipmentPrice.toFixed(2)}`}
               />
             </div>
           </div>

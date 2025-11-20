@@ -1,13 +1,23 @@
 import { useEffect, useRef } from "react";
+import { Alert, Loader } from "time-locker-ui";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  isLoading?: boolean;
+  error?: Error | null | string | unknown;
 };
 
-const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  isLoading,
+  error,
+}: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,12 +67,28 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
           <h3 className="text-lg font-semibold">{title || "Modal"}</h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 text-2xl cursor-pointer"
           >
             &times;
           </button>
         </div>
-        {children}
+        {isLoading ? (
+          <Loader />
+        ) : error ? (
+          <Alert
+            type="error"
+            text={
+              typeof error === "string"
+                ? error
+                : error instanceof Error
+                ? error.message
+                : "An unknown error occurred"
+            }
+            className="mb-4"
+          />
+        ) : (
+          children
+        )}
       </div>
     </div>
   );

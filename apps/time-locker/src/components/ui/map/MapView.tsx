@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { LatLngBoundsExpression } from "leaflet";
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import { Icon } from "leaflet";
 
 const locations = [
   { id: 1, name: "Izolirka", lat: 45.7712, lng: 18.61311 },
@@ -20,7 +22,17 @@ const MapView = () => {
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <FitBounds bounds={bounds} />
       {locations.map((loc) => (
-        <Marker key={loc.id} position={[loc.lat, loc.lng]}>
+        <Marker
+          key={loc.id}
+          position={[loc.lat, loc.lng]}
+          icon={
+            new Icon({
+              iconUrl: markerIconPng,
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+            })
+          }
+        >
           <Popup>{loc.name}</Popup>
         </Marker>
       ))}

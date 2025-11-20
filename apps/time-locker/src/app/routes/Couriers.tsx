@@ -25,14 +25,6 @@ const Couriers = () => {
           >
             <UserPlus className="w-6 h-6" /> Add new courier
           </Link>
-          <Link
-            to={"/#"}
-            className="inline-flex items-center gap-2  w-full lg:w-auto justify-center text-blue-500 border border-blue-500 text-sm py-4 px-4.5 rounded-xs"
-          >
-            <span className="h-6 inline-flex items-center">
-              Send a message to couriers
-            </span>
-          </Link>
         </div>
       </div>
       <Cluster className="courier-grid-cluster">

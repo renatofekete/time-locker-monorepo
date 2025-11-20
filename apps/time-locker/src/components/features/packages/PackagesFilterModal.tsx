@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "@/components/ui/modal/Modal";
 import { formatDateForApi, formatDateForInput } from "@/utils/date";
+import { usePackageStates } from "@/hooks/usePackages";
 
 type FilterProps = {
   isOpen: boolean;
@@ -9,11 +10,13 @@ type FilterProps = {
     pickUpTimeFrom: string;
     pickUpTimeTo: string;
     pickUpMethod: string;
-    location: string;
+    receiverLocation: string;
+    senderLocation: string;
     isDelivered: string;
     query: string;
     pageNumber: string;
     pageSize: string;
+    state: string;
   };
   onApplyFilters: (filters: any) => void;
 };
@@ -46,14 +49,24 @@ const PackagesFilterModal = ({
       pickUpTimeFrom: "",
       pickUpTimeTo: "",
       pickUpMethod: "",
-      location: "",
+      receiverLocation: "",
+      senderLocation: "",
       isDelivered: "",
       query: "",
+      state: "",
     });
   };
 
+  const { data, isLoading, error } = usePackageStates(`/packages/states`);
+
   return (
-    <Modal title="Filter Packages" isOpen={isOpen} onClose={onClose}>
+    <Modal
+      title="Filter Packages"
+      isOpen={isOpen}
+      onClose={onClose}
+      error={error}
+      isLoading={isLoading}
+    >
       <div className="p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -96,29 +109,31 @@ const PackagesFilterModal = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Pickup Method
+            Delivery State
           </label>
           <select
-            name="pickUpMethod"
-            value={localFilters.pickUpMethod}
+            name="state"
+            value={localFilters.state}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
           >
             <option value="">All</option>
-            <option value="Parcel machine">Parcel machine</option>
-            <option value="Locker">Time Locker</option>
-            <option value="Personal mailbox">Personal mailbox</option>
+            {data?.data.items.map((state: string) => (
+              <option key={state.abbreviation} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Location
+            Receiver Location
           </label>
           <input
             type="text"
-            name="location"
-            value={localFilters.location}
+            name="receiverLocation"
+            value={localFilters.receiverLocation}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Enter location"
@@ -127,18 +142,16 @@ const PackagesFilterModal = ({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Delivery Status
+            Sender Location
           </label>
-          <select
-            name="isDelivered"
-            value={localFilters.isDelivered}
+          <input
+            type="text"
+            name="senderLocation"
+            value={localFilters.senderLocation}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
-          >
-            <option value="">All</option>
-            <option value="true">Delivered</option>
-            <option value="false">Not Delivered</option>
-          </select>
+            placeholder="Enter location"
+          />
         </div>
 
         <div className="flex justify-end gap-3 mt-6">

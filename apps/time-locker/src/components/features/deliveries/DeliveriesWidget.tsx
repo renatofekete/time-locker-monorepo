@@ -14,11 +14,10 @@ import { readableDate } from "@/utils/date";
 import { useDebounce } from "@/hooks/useDebounce";
 
 const TABLE_HEADERS = [
-  { label: "Package ID" },
+  { label: "Tracking Number" },
   { label: "Pickup Date" },
   { label: "Location" },
   { label: "Delivery Method" },
-  { label: "Delivered" },
 ];
 
 const PER_PAGE = 7;
@@ -27,6 +26,7 @@ const DeliveriesWidget = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [filterCriteria, setFilterCriteria] = useState({
+    orderBy: "pickupTime|asc",
     pickUpTimeFrom: "",
     pickUpTimeTo: "",
     pickUpMethod: "",
@@ -43,6 +43,18 @@ const DeliveriesWidget = () => {
       pageNumber: currentPage.toString(),
     }));
   }, [currentPage]);
+
+  const toggleSort = useCallback(() => {
+    setFilterCriteria((prev) => {
+      const [field, dir] = (prev.orderBy || "pickupTime|asc").split("|");
+      const newDir = dir === "asc" ? "desc" : "asc";
+      return { ...prev, orderBy: `${field}|${newDir}`, pageNumber: "1" };
+    });
+    setCurrentPage(1);
+  }, []);
+
+  const currentSortDir =
+    (filterCriteria.orderBy || "pickupTime|asc").split("|")[1] ?? "asc";
 
   const handleFilterChange = (newFilters: typeof filterCriteria) => {
     setCurrentPage(1);
@@ -77,7 +89,7 @@ const DeliveriesWidget = () => {
   const updateSearch = useCallback((value: string) => {
     setFilterCriteria((prev) => ({
       ...prev,
-      query: value,
+      Query: value,
       pageNumber: "1",
     }));
     setCurrentPage(1);
@@ -92,7 +104,7 @@ const DeliveriesWidget = () => {
     <Card
       isLoading={isLoading}
       error={error}
-      title="Ongoing Deliveries"
+      title="Active Deliveries"
       subtitle={`(${totalLength})`}
       header={
         <div>
@@ -102,8 +114,8 @@ const DeliveriesWidget = () => {
             placeholder="Search packages"
           />
           <div className="flex mb-5 gap-2.5">
-            <Button>
-              Sort{" "}
+            <Button onClick={toggleSort} aria-label="Toggle sort">
+              Sort {currentSortDir === "asc" ? "↑" : "↓"}{" "}
               <span>
                 <SortVertical />
               </span>
@@ -124,7 +136,7 @@ const DeliveriesWidget = () => {
           data={deliveries}
           renderRow={(delivery) => (
             <tr key={delivery.id} className="border-b border-neutral-300/50">
-              <td className="ps-6 py-5">{delivery.id}</td>
+              <td className="ps-6 py-5">{delivery.package.trackingNumber}</td>
               <td className="ps-6 py-5">{readableDate(delivery.pickUpTime)}</td>
               <td className="ps-6 py-5">
                 {delivery.locationSnapshot?.address || "N/A"}{" "}
@@ -134,9 +146,6 @@ const DeliveriesWidget = () => {
               </td>
               <td className="ps-6 py-5">
                 {delivery.package?.packagePickupMethod?.name || "N/A"}
-              </td>
-              <td className="ps-6 py-5">
-                {delivery.isDelivered ? "Yes" : "No"}
               </td>
             </tr>
           )}
